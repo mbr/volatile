@@ -5,7 +5,7 @@ import tempfile
 
 
 @contextmanager
-def NamedTemporaryFile(*args, **kwargs):
+def file(*args, **kwargs):
     ignore_missing = kwargs.pop('ignore_missing', False)
 
     fp = tempfile.NamedTemporaryFile(*args, delete=False, **kwargs)
