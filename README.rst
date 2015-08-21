@@ -1,5 +1,5 @@
-temp
-====
+volatile
+========
 
 A replacement for ``tempfile.NamedTemporaryFile`` that does not delete the file
 on ``close()``, but still unlinks it after the context manager ends.
@@ -18,9 +18,9 @@ A typical use-case that is not possible with the regular
 
 .. code-block:: python
 
-    import temp
+    import volatile
 
-    with temp.file() as tmp:
+    with volatile.file() as tmp:
         # tmp behaves like a regular NamedTemporaryFile here, except for that
         # it gets unlinked at the end of the context manager, instead of when
         # close() is called.

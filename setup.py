@@ -11,16 +11,16 @@ def read(fname):
 
 
 setup(
-    name='temp',
+    name='volatile',
     version='0.2.dev1',
     description='A small extension for the tempfile module.',
     long_description=read('README.rst'),
     author='Marc Brinkmann',
     author_email='git@marcbrinkmann.de',
-    url='https://github.com/mbr/temp',
+    url='https://github.com/mbr/volatile',
     license='MIT',
     packages=find_packages(exclude=['tests']),
-    py_modules=['temp'],
+    py_modules=['volatile'],
     classifiers=[
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
