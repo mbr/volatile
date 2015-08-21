@@ -20,7 +20,7 @@ setup(
     url='https://github.com/mbr/temp',
     license='MIT',
     packages=find_packages(exclude=['tests']),
-    modules=['temp.py'],
+    py_modules=['temp'],
     classifiers=[
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
