@@ -1,10 +1,13 @@
 volatile
 ========
 
-A replacement for ``tempfile.NamedTemporaryFile`` that does not delete the file
-on ``close()``, but still unlinks it after the context manager ends.
+Temporary files and directories.
 
-* Mostly reuses the stdlib implementation, supporting the same signatures.
+Contains replacement for ``tempfile.NamedTemporaryFile`` that does not delete
+the file on ``close()``, but still unlinks it after the context manager ends,
+as well as a ``mkdtemp``-based temporary directory implementation.
+
+* Mostly reuses the stdlib implementations, supporting the same signatures.
 * Due to that, uses the OS's built-in temporary file facilities, no custom
   schemes.
 * Tested on Python 2.6+ and 3.3+
@@ -33,3 +36,14 @@ A typical use-case that is not possible with the regular
         buf = open(tmp.name).read()
 
         # ...
+
+Temporary directories:
+
+.. code-block:: python
+
+    import volatile
+
+    with volatile.dir(): as dtmp:
+        pass  # ... can use directory here
+
+    # a missing dtmp will not throw an exception!
