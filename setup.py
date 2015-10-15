@@ -20,7 +20,6 @@ setup(
     url='https://github.com/mbr/volatile',
     license='MIT',
     packages=find_packages(exclude=['tests']),
-    py_modules=['volatile'],
     classifiers=[
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
