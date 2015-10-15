@@ -30,3 +30,16 @@ def test_unlink_raises():
 def test_can_ignore_missing():
     with volatile.file(ignore_missing=True) as tmp:
         os.unlink(tmp.name)
+
+
+def test_temp_dir():
+    with volatile.dir() as dtmp:
+        assert os.path.exists(dtmp)
+        assert os.path.isdir(dtmp)
+
+    assert not os.path.exists(dtmp)
+
+
+def test_can_remove_dir_without_error():
+    with volatile.dir() as dtmp:
+        os.rmdir(dtmp)
