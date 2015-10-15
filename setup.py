@@ -12,7 +12,7 @@ def read(fname):
 
 setup(
     name='volatile',
-    version='0.2.dev1',
+    version='1.0',
     description='A small extension for the tempfile module.',
     long_description=read('README.rst'),
     author='Marc Brinkmann',
