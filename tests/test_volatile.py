@@ -51,3 +51,42 @@ def test_socket():
         assert os.path.exists(addr)
 
     assert not os.path.exists(addr)
+
+
+def test_file_cleanup_after_exception():
+    try:
+        with volatile.file() as tmp:
+            name = tmp.name
+            assert os.path.exists(name)
+            raise RuntimeError()
+            pass
+    except RuntimeError:
+        print 'caught runtime error'
+
+    assert not os.path.exists(name)
+
+
+def test_dir_cleanup_after_exception():
+    try:
+        with volatile.dir() as dtmp:
+            name = dtmp
+            assert os.path.exists(name)
+            raise RuntimeError()
+            pass
+    except RuntimeError:
+        print 'caught runtime error'
+
+    assert not os.path.exists(name)
+
+
+def test_socket_cleanup_after_exception():
+    try:
+        with volatile.unix_socket() as (_, addr):
+            name = addr
+            assert os.path.exists(name)
+            raise RuntimeError()
+            pass
+    except RuntimeError:
+        print 'caught runtime error'
+
+    assert not os.path.exists(name)

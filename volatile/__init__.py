@@ -10,13 +10,14 @@ import tempfile
 def dir(*args, **kwargs):
     name = tempfile.mkdtemp(*args, **kwargs)
 
-    yield name
-
     try:
-        shutil.rmtree(name)
-    except OSError as e:
-        if e.errno != 2:  # not found
-            raise
+        yield name
+    finally:
+        try:
+            shutil.rmtree(name)
+        except OSError as e:
+            if e.errno != 2:  # not found
+                raise
 
 
 @contextmanager
@@ -43,7 +44,8 @@ def unix_socket(sock=None, socket_name='tmp.socket', close=True):
         addr = os.path.join(dtmp, socket_name)
         sock.bind(addr)
 
-        yield sock, addr
-
-        if close:
-            sock.close()
+        try:
+            yield sock, addr
+        finally:
+            if close:
+                sock.close()
