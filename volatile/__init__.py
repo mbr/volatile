@@ -2,6 +2,7 @@ from contextlib import contextmanager
 from errno import ENOENT
 import os
 import shutil
+import socket
 import tempfile
 
 
@@ -32,3 +33,17 @@ def file(*args, **kwargs):
             # if the file does not exist anymore, ignore
             if e.errno != ENOENT or ignore_missing is False:
                 raise
+
+
+@contextmanager
+def unix_socket(sock=None, socket_name='tmp.socket', close=True):
+    sock = sock or socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+
+    with dir() as dtmp:
+        addr = os.path.join(dtmp, socket_name)
+        sock.bind(addr)
+
+        yield sock, addr
+
+        if close:
+            sock.close()

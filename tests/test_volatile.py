@@ -43,3 +43,11 @@ def test_temp_dir():
 def test_can_remove_dir_without_error():
     with volatile.dir() as dtmp:
         os.rmdir(dtmp)
+
+
+def test_socket():
+    with volatile.unix_socket() as (sock, addr):
+        assert hasattr(sock, 'close')
+        assert os.path.exists(addr)
+
+    assert not os.path.exists(addr)

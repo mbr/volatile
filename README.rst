@@ -47,3 +47,13 @@ Temporary directories:
         pass  # ... can use directory here
 
     # a missing dtmp will not throw an exception!
+
+Unix domain sockets:
+
+.. code-block:: python
+
+    import volatile
+
+    with volatile.unix_socket(): as (sock, addr):
+        # sock is the bound socket, addr its address on the filesystem
+        pass  # ... can use directory here
