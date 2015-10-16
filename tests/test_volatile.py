@@ -61,7 +61,7 @@ def test_file_cleanup_after_exception():
             raise RuntimeError()
             pass
     except RuntimeError:
-        print 'caught runtime error'
+        pass
 
     assert not os.path.exists(name)
 
@@ -74,7 +74,7 @@ def test_dir_cleanup_after_exception():
             raise RuntimeError()
             pass
     except RuntimeError:
-        print 'caught runtime error'
+        pass
 
     assert not os.path.exists(name)
 
@@ -87,6 +87,6 @@ def test_socket_cleanup_after_exception():
             raise RuntimeError()
             pass
     except RuntimeError:
-        print 'caught runtime error'
+        pass
 
     assert not os.path.exists(name)
