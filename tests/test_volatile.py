@@ -104,3 +104,13 @@ def test_force_false_is_gentle():
 
         os.unlink(blocking_path)
         os.rmdir(os.path.dirname(blocking_path))
+
+
+def test_umask():
+    current_umask = os.umask(0o022)
+    os.umask(current_umask)
+
+    with volatile.umask(0o456):
+        assert os.umask(0o123) == 0o456
+
+    assert os.umask(current_umask) == current_umask

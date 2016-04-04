@@ -113,3 +113,10 @@ def unix_socket(sock=None, socket_name='tmp.socket', close=True):
         finally:
             if close:
                 sock.close()
+
+
+@contextmanager
+def umask(new_umask):
+    prev_umask = os.umask(new_umask)
+    yield prev_umask
+    os.umask(prev_umask)
