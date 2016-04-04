@@ -57,3 +57,6 @@ Unix domain sockets:
     with volatile.unix_socket(): as (sock, addr):
         # sock is the bound socket, addr its address on the filesystem
         pass  # ... can use directory here
+
+The source is fairly short and contains `API docs in the comments
+<https://github.com/mbr/volatile/blob/master/volatile/__init__.py>`_.
