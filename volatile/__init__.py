@@ -7,8 +7,8 @@ import tempfile
 
 
 @contextmanager
-def dir(*args, **kwargs):
-    name = tempfile.mkdtemp(*args, **kwargs)
+def dir(suffix='', prefix='tmp', dir=None):
+    name = tempfile.mkdtemp(suffix, prefix, dir)
 
     try:
         yield name
@@ -21,10 +21,18 @@ def dir(*args, **kwargs):
 
 
 @contextmanager
-def file(*args, **kwargs):
-    ignore_missing = kwargs.pop('ignore_missing', False)
+def file(mode='w+b', suffix='', prefix='tmp', dir=None, ignore_missing=False):
+    # note: bufsize is not supported in Python3, try to prevent problems
+    #       stemming from incorrect api usage
+    if isinstance(suffix, int):
+        raise ValueError('Passed an integer as suffix. Did you want to '
+                         'specify the deprecated parameter `bufsize`?')
 
-    fp = tempfile.NamedTemporaryFile(*args, delete=False, **kwargs)
+    fp = tempfile.NamedTemporaryFile(mode=mode,
+                                     suffix=suffix,
+                                     prefix=prefix,
+                                     dir=dir,
+                                     delete=False)
     try:
         yield fp
     finally:
