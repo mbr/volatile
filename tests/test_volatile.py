@@ -90,3 +90,17 @@ def test_socket_cleanup_after_exception():
         pass
 
     assert not os.path.exists(name)
+
+
+def test_force_false_is_gentle():
+    try:
+        with pytest.raises(OSError):
+            with volatile.dir(force=False) as dtmp:
+                blocking_path = os.path.join(dtmp, 'blocking')
+                with open(blocking_path, 'w') as f:
+                    f.write('hello')
+    finally:
+        assert os.path.exists(blocking_path)
+
+        os.unlink(blocking_path)
+        os.rmdir(os.path.dirname(blocking_path))
